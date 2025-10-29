@@ -1,0 +1,8 @@
+{
+  "enabledMcpjsonServers": [
+    "lsp",
+    "filesystem",
+    "macos-screen"
+  ],
+  "enableAllProjectMcpServers": true
+}
