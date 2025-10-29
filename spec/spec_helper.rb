@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "redis/job/queue"
+require "job/queue"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

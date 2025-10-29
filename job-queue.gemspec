@@ -1,11 +1,11 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "redis/job/queue/version"
+require "job/queue/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "redis-job-queue"
-  spec.version       = Redis::Job::Queue::VERSION
+  spec.name          = "job-queue"
+  spec.version       = Job::Queue::VERSION
   spec.authors       = ["Mat Pataki"]
   spec.email         = ["matpataki@gmail.com"]
 

@@ -1,6 +1,6 @@
-RSpec.describe Redis::Job::Queue do
+RSpec.describe Job::Queue do
   it "has a version number" do
-    expect(Redis::Job::Queue::VERSION).not_to be nil
+    expect(Job::Queue::VERSION).not_to be nil
   end
 
   it "does something useful" do
