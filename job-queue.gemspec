@@ -44,4 +44,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "redis", "~> 5.4"
   spec.add_dependency "json", "~> 2.15"
+  spec.add_dependency "concurrent-ruby", "~> 1.3"
 end

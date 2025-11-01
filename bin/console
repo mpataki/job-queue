@@ -8,14 +8,15 @@ require 'job/queue'
 
 @redis = Redis.new
 @queue = Job::Queue::Queue.new('my-queue', @redis)
-@worker = Job::Queue::Worker.new(@queue)
+@serial_worker = Job::Queue::Workers::SerialWorker.new(@queue)
+@concurrent_worker = Job::Queue::Workers::ConcurrentWorker.new(@queue)
 
 class SlowJob
   include Job::Queue::Job
 
   def run
     puts "SlowJob running with args: #{@args}..."
-    sleep 2
+    sleep 1
     puts 'job done'
   end
 end
