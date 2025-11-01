@@ -4,7 +4,9 @@ module Job::Queue::Workers
       loop do
         job = @queue.dequeue
 
-        job&.run
+        @error_handler.wrap do
+          job&.run
+        end
 
         sleep 5 if job.nil?
       end

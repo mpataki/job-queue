@@ -23,12 +23,7 @@ module Job::Queue
       return nil unless raw_value
 
       job_definition = JSON.parse(raw_value, symbolize_names: true)
-
-      puts job_definition
-
       klass = Object.const_get(job_definition[:class_name])
-
-      puts klass
 
       klass.new(job_definition[:args])
     end

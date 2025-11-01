@@ -8,8 +8,8 @@ require 'job/queue'
 
 @redis = Redis.new
 @queue = Job::Queue::Queue.new('my-queue', @redis)
-@serial_worker = Job::Queue::Workers::SerialWorker.new(@queue)
-@concurrent_worker = Job::Queue::Workers::ConcurrentWorker.new(@queue)
+@serial_worker = Job::Queue::Workers::SerialWorker.new(@queue, Job::Queue::ErrorHandling::RetryErrorHandler.new(3))
+@concurrent_worker = Job::Queue::Workers::ConcurrentWorker.new(@queue, Job::Queue::ErrorHandling::RetryErrorHandler.new(3))
 
 class SlowJob
   include Job::Queue::Job
@@ -21,7 +21,30 @@ class SlowJob
   end
 end
 
+class BustedTwiceJob
+  include Job::Queue::Job
+
+  def initialize(args)
+    super
+    @runs = 0
+  end
+
+  def run
+    @runs += 1
+
+    if @runs >= 3
+      puts "I'm good!"
+      return
+    end
+
+    puts "I'm broken"
+
+    raise
+  end
+end
+
 @job = SlowJob.new(['my', 'args'])
+@busted_job = BustedTwiceJob.new([])
 
 # (If you use this, don't forget to add pry to your Gemfile!)
 # require "pry"
