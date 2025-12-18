@@ -24,6 +24,8 @@ module Job::Queue::Workers
             end
           end
         end
+      rescue Concurrent::RejectedExecutionError
+        # no-op -- let the thread shutdown
       end
     end
 
